@@ -1,12 +1,27 @@
 import React from 'react';
 
-import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import SearchField from './Components/SearchField/SearchField';
 
 class App extends React.Component {
+  state = {
+    monsters: [],
+    searchText: '',
+  };
+
+  setSearchText = (text) => {
+    this.setState({
+      searchText: text,
+    });
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Hello Monsters</Text>
+        <Text style={styles.title}> Monsters</Text>
+        <SearchField
+          searchText={this.state.searchText}
+          setSearchText={this.setSearchText}
+        />
       </SafeAreaView>
     );
   }
@@ -15,12 +30,13 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 50,
     alignItems: 'center',
+    backgroundColor: '#eee',
   },
   title: {
-    fontSize: 20,
-    fontWeight: '500',
+    fontSize: 25,
+    fontWeight: '700',
   },
 });
 
