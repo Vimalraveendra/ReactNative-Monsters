@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
   },
   searchText: {
     fontSize: 18,
-    color: '#fff',
-    padding: 10,
+    padding: 15,
     width: '100%',
   },
 });

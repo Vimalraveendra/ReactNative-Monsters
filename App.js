@@ -25,6 +25,13 @@ class App extends React.Component {
       searchText: text,
     });
   };
+
+  filteredMonsters = () => {
+    const {monsters, searchText} = this.state;
+    return monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -34,7 +41,7 @@ class App extends React.Component {
           setSearchText={this.setSearchText}
         />
         <FlatList
-          data={this.state.monsters}
+          data={this.filteredMonsters()}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
           style={styles.list}
@@ -47,13 +54,13 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
     alignItems: 'center',
     backgroundColor: '#eee',
   },
   title: {
     fontSize: 25,
     fontWeight: '700',
+    marginTop: 20,
   },
   list: {
     width: '80%',
