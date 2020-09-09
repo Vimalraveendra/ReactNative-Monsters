@@ -3,7 +3,6 @@ import React from 'react';
 import {StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
 const renderItem = ({item: {name, email, id, phone}}) => {
-  console.log('this', name);
   return (
     <TouchableOpacity style={styles.card}>
       <Image
@@ -39,9 +38,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   name: {
-    fontSize: 18,
-    fontWeight: '500',
+    fontSize: 20,
+    fontWeight: '400',
     marginVertical: 10,
+    fontFamily: 'Roboto-Black',
   },
   email: {
     fontSize: 16,
