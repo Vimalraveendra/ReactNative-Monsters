@@ -18,9 +18,11 @@ const styles = StyleSheet.create({
   searchField: {
     marginTop: 30,
     alignItems: 'center',
-    backgroundColor: 'red',
-    width: '70%',
+    backgroundColor: '#fff',
+    width: '75%',
     height: 50,
+    marginBottom: 10,
+    borderRadius: 10,
   },
   searchText: {
     fontSize: 18,

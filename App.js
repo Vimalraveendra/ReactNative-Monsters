@@ -1,12 +1,23 @@
 import React from 'react';
 
-import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, StyleSheet, FlatList} from 'react-native';
 import SearchField from './Components/SearchField/SearchField';
+import renderItem from './Components/Card/Card';
 
 class App extends React.Component {
   state = {
     monsters: [],
     searchText: '',
+  };
+
+  componentDidMount() {
+    this.fetchMonsters();
+  }
+  fetchMonsters = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({monsters: data});
   };
 
   setSearchText = (text) => {
@@ -21,6 +32,12 @@ class App extends React.Component {
         <SearchField
           searchText={this.state.searchText}
           setSearchText={this.setSearchText}
+        />
+        <FlatList
+          data={this.state.monsters}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          style={styles.list}
         />
       </SafeAreaView>
     );
@@ -37,6 +54,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: '700',
+  },
+  list: {
+    width: '80%',
   },
 });
 
