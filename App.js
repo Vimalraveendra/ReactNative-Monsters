@@ -1,6 +1,12 @@
 import React from 'react';
 
-import {SafeAreaView, Text, StyleSheet, FlatList} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import SearchField from './Components/SearchField/SearchField';
 import renderItem from './Components/Card/Card';
 
@@ -8,6 +14,7 @@ class App extends React.Component {
   state = {
     monsters: [],
     searchText: '',
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -33,19 +40,28 @@ class App extends React.Component {
     });
   };
   render() {
+    const {searchText, isLoading} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}> Monsters</Text>
         <SearchField
-          searchText={this.state.searchText}
+          searchText={searchText}
           setSearchText={this.setSearchText}
         />
-        <FlatList
-          data={this.filteredMonsters()}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
-          style={styles.list}
-        />
+        {isLoading ? (
+          <ActivityIndicator
+            size="large"
+            color="#bad555"
+            style={styles.loading}
+          />
+        ) : (
+          <FlatList
+            data={this.filteredMonsters()}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+            style={styles.list}
+          />
+        )}
       </SafeAreaView>
     );
   }
@@ -58,9 +74,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
   },
   title: {
-    fontSize: 25,
-    fontWeight: '700',
+    fontSize: 50,
+    fontWeight: 'bold',
     marginTop: 20,
+    fontFamily: 'BigelowRules-Regular',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'grey',
   },
   list: {
     width: '80%',

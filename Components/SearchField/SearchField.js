@@ -6,8 +6,9 @@ const SearchField = ({searchText, setSearchText}) => {
   return (
     <View style={styles.searchField}>
       <TextInput
-        placeholder="Search here..."
+        placeholder="Search Robots here..."
         style={styles.searchText}
+        value={searchText}
         onChangeText={setSearchText}
       />
     </View>
