@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
 const renderItem = ({item: {name, email, id, phone}}) => {
+  console.log('this', name);
   return (
     <TouchableOpacity style={styles.card}>
       <Image
