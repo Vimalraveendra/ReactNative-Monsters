@@ -10,6 +10,10 @@ import {
 import SearchField from './Components/SearchField/SearchField';
 import renderItem from './Components/Card/Card';
 
+// const {width, height} = Dimensions.get('window');
+// console.log('wid', width);
+// console.log('high', height);
+
 class App extends React.Component {
   state = {
     monsters: [],
