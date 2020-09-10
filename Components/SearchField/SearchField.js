@@ -1,13 +1,20 @@
 import React from 'react';
 
 import {View, StyleSheet, TextInput} from 'react-native';
+import {connect} from 'react-redux';
+import {searchChange} from '../../redux/SearchField/SearchField.actions';
 
-const SearchField = ({searchText, setSearchText}) => {
+const SearchField = ({searchText, setSearchText, orientation}) => {
   return (
-    <View style={styles.searchField}>
+    <View
+      style={
+        orientation === '' || orientation === 'portrait'
+          ? stylesPortrait.searchField
+          : stylesLandscape.searchField
+      }>
       <TextInput
         placeholder="Search Robots here..."
-        style={styles.searchText}
+        style={stylesPortrait.searchText}
         value={searchText}
         onChangeText={setSearchText}
       />
@@ -15,7 +22,7 @@ const SearchField = ({searchText, setSearchText}) => {
   );
 };
 
-const styles = StyleSheet.create({
+const stylesPortrait = StyleSheet.create({
   searchField: {
     marginTop: 30,
     alignItems: 'center',
@@ -31,5 +38,24 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
+const stylesLandscape = StyleSheet.create({
+  searchField: {
+    marginTop: 10,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    width: '40%',
+    height: 40,
+    marginBottom: 10,
+    borderRadius: 10,
+  },
+});
 
-export default SearchField;
+const mapStateToProps = ({searchField: {searchText, orientation}}) => ({
+  searchText,
+  orientation,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setSearchText: (text) => dispatch(searchChange(text)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchField);

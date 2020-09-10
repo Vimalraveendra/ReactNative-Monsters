@@ -2,6 +2,7 @@ import {searchFieldTypes} from './SearchField.types';
 
 const initialState = {
   searchText: '',
+  orientation: '',
 };
 
 export const searchChangeReducer = (state = initialState, action = {}) => {
@@ -9,7 +10,12 @@ export const searchChangeReducer = (state = initialState, action = {}) => {
     case searchFieldTypes.HANDLE_SEARCH_CHANGE:
       return {
         ...state,
-        searchField: action.payload,
+        searchText: action.payload,
+      };
+    case searchFieldTypes.HANDLE_DEVICE_ORIENTATION:
+      return {
+        ...state,
+        orientation: action.payload,
       };
     default:
       return state;
