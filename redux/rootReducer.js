@@ -4,7 +4,7 @@ import {MonstersReducer} from './Monsters/Monsters.reducers';
 
 const rootReducer = combineReducers({
   monstersList: MonstersReducer,
-  searchText: searchChangeReducer,
+  searchField: searchChangeReducer,
 });
 
 export default rootReducer;

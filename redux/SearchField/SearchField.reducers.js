@@ -1,7 +1,7 @@
 import {searchFieldTypes} from './SearchField.types';
 
 const initialState = {
-  searchField: '',
+  searchText: '',
 };
 
 export const searchChangeReducer = (state = initialState, action = {}) => {
