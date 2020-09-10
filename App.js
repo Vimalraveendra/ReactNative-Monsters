@@ -6,18 +6,23 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import SearchField from './Components/SearchField/SearchField';
-import renderItem from './Components/Card/Card';
+import Card from './Components/Card/Card';
 import {connect} from 'react-redux';
 import {fetchedMonstersData} from './redux/Monsters/Monsters.actions';
-
-// const {width, height} = Dimensions.get('window');
-// console.log('wid', width);
-// console.log('high', height);
+import {setDeviceOrientation} from './redux/SearchField/SearchField.actions';
 
 class App extends React.Component {
+  // state = {
+  //   orientation: '',
+  // };
   componentDidMount() {
+    Dimensions.addEventListener('change', () => {
+      const {width, height} = Dimensions.get('window');
+      this.props.getOrientation(width, height);
+    });
     this.props.fetchMonsters();
   }
 
@@ -27,6 +32,7 @@ class App extends React.Component {
       return monster.name.toLowerCase().includes(searchText.toLowerCase());
     });
   };
+
   render() {
     const {isLoading} = this.props;
     return (
@@ -43,8 +49,8 @@ class App extends React.Component {
           <FlatList
             data={this.filteredMonsters()}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={renderItem}
             style={styles.list}
+            renderItem={({item}) => <Card item={item} />}
           />
         )}
       </SafeAreaView>
@@ -63,6 +69,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchMonsters: () => dispatch(fetchedMonstersData()),
+  getOrientation: (width, height) =>
+    dispatch(setDeviceOrientation(width, height)),
 });
 
 const styles = StyleSheet.create({

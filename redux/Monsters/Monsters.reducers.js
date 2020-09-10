@@ -4,6 +4,7 @@ const initialState = {
   monsters: [],
   isLoading: false,
   error: '',
+  orientation: '',
 };
 
 export const MonstersReducer = (state = initialState, action = {}) => {
