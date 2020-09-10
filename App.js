@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import SearchField from './Components/SearchField/SearchField';
 import renderItem from './Components/Card/Card';
+import {connect} from 'react-redux';
+import {
+  fetchMonstersData,
+  fetchedMonstersData,
+} from './redux/Monsters/Monsters.actions';
 
 // const {width, height} = Dimensions.get('window');
 // console.log('wid', width);
@@ -22,29 +27,29 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchMonsters();
+    this.props.fetchMonsters();
   }
-  fetchMonsters = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/users';
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({monsters: data});
-  };
+  // fetchMonsters = async () => {
+  //   const url = 'https://jsonplaceholder.typicode.com/users';
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   this.setState({monsters: data});
+  // };
 
-  setSearchText = (text) => {
-    this.setState({
-      searchText: text,
-    });
-  };
+  // setSearchText = (text) => {
+  //   this.setState({
+  //     searchText: text,
+  //   });
+  // };
 
   filteredMonsters = () => {
-    const {monsters, searchText} = this.state;
+    const {monsters, searchText} = this.props;
     return monsters.filter((monster) => {
       return monster.name.toLowerCase().includes(searchText.toLowerCase());
     });
   };
   render() {
-    const {searchText, isLoading} = this.state;
+    const {searchText, isLoading} = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}> Monsters</Text>
@@ -71,6 +76,23 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = ({
+  searchField: {searchText},
+  monstersList: {monsters, isLoading},
+}) => {
+  return {
+    searchText,
+    monsters,
+    isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMonsters: () => dispatch(fetchedMonstersData()),
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
