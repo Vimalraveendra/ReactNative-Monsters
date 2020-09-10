@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {View, StyleSheet, TextInput} from 'react-native';
+import {connect} from 'react-redux';
+import {searchChange} from '../../redux/SearchField/SearchField.actions';
 
 const SearchField = ({searchText, setSearchText}) => {
   return (
@@ -32,4 +34,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchField;
+const mapStateToProps = ({searchField: {searchText}}) => ({
+  searchText,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setSearchText: (text) => dispatch(searchChange(text)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchField);

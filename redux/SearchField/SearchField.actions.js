@@ -1,6 +1,6 @@
 import {searchFieldTypes} from './SearchField.types';
 
-export const searchChange = (text) => {
+export const searchChange = (text) => ({
   type: searchFieldTypes.HANDLE_SEARCH_CHANGE,
-  payload: text;
-};
+  payload: text,
+});

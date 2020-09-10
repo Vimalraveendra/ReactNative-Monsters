@@ -10,37 +10,16 @@ import {
 import SearchField from './Components/SearchField/SearchField';
 import renderItem from './Components/Card/Card';
 import {connect} from 'react-redux';
-import {
-  fetchMonstersData,
-  fetchedMonstersData,
-} from './redux/Monsters/Monsters.actions';
+import {fetchedMonstersData} from './redux/Monsters/Monsters.actions';
 
 // const {width, height} = Dimensions.get('window');
 // console.log('wid', width);
 // console.log('high', height);
 
 class App extends React.Component {
-  state = {
-    monsters: [],
-    searchText: '',
-    isLoading: false,
-  };
-
   componentDidMount() {
     this.props.fetchMonsters();
   }
-  // fetchMonsters = async () => {
-  //   const url = 'https://jsonplaceholder.typicode.com/users';
-  //   const response = await fetch(url);
-  //   const data = await response.json();
-  //   this.setState({monsters: data});
-  // };
-
-  // setSearchText = (text) => {
-  //   this.setState({
-  //     searchText: text,
-  //   });
-  // };
 
   filteredMonsters = () => {
     const {monsters, searchText} = this.props;
@@ -49,14 +28,11 @@ class App extends React.Component {
     });
   };
   render() {
-    const {searchText, isLoading} = this.props;
+    const {isLoading} = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}> Monsters</Text>
-        <SearchField
-          searchText={searchText}
-          setSearchText={this.setSearchText}
-        />
+        <SearchField />
         {isLoading ? (
           <ActivityIndicator
             size="large"
@@ -79,19 +55,15 @@ class App extends React.Component {
 const mapStateToProps = ({
   searchField: {searchText},
   monstersList: {monsters, isLoading},
-}) => {
-  return {
-    searchText,
-    monsters,
-    isLoading,
-  };
-};
+}) => ({
+  searchText,
+  monsters,
+  isLoading,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchMonsters: () => dispatch(fetchedMonstersData()),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchMonsters: () => dispatch(fetchedMonstersData()),
+});
 
 const styles = StyleSheet.create({
   container: {

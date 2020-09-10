@@ -9,7 +9,7 @@ export const searchChangeReducer = (state = initialState, action = {}) => {
     case searchFieldTypes.HANDLE_SEARCH_CHANGE:
       return {
         ...state,
-        searchField: action.payload,
+        searchText: action.payload,
       };
     default:
       return state;
